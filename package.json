@@ -1,0 +1,9 @@
+{
+  "name": "sweet-pea",
+  "version": "0.0.1",
+  "description": "Build tools for Open Social themes",
+  "main": "index.js",
+  "author": "Alexander Varwijk <alexander@goalgorilla.com>",
+  "license": "GPL-2.0",
+  "private": false
+}
