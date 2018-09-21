@@ -2,8 +2,16 @@
   "name": "sweet-pea",
   "version": "0.0.1",
   "description": "Build tools for Open Social themes",
-  "main": "index.js",
+  "main": "cli.js",
   "author": "Alexander Varwijk <alexander@goalgorilla.com>",
   "license": "GPL-2.0",
-  "private": false
+  "bin": {
+    "sp": "./cli.js"
+  },
+  "scripts": {
+    "lint": "eslint cli.js"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.0"
+  }
 }
