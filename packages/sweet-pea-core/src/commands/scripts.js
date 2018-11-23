@@ -1,11 +1,11 @@
 "use strict";
 
-const fs = require('fs');
-const glob = require('glob');
-const path = require('path');
-const UglifyJS = require('uglify-js');
+import fs  from 'fs';
+import glob  from 'glob';
+import path  from 'path';
+import UglifyJS  from 'uglify-js';
 
-function compileScripts(Theme) {
+export default function compileScripts(Theme) {
   const options = {
     directory: Theme.getComponentsPath(),
     output: Theme.getOutputPath('js'),
@@ -94,5 +94,3 @@ function humanFileSize(bytes) {
   } while(Math.abs(bytes) >= thresh && u < units.length - 1);
   return bytes.toFixed(2)+' '+units[u];
 }
-
-module.exports = compileScripts;

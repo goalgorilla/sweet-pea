@@ -1,0 +1,26 @@
+{
+  "name": "@sweet-pea/core",
+  "version": "0.1.0",
+  "description": "Core of the Open Social front-end build tools",
+  "main": "lib/index.js",
+  "author": "Alexander Varwijk <alexander@goalgorilla.com>",
+  "license": "GPL-2.0",
+  "bin": {
+    "sp": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "webpack  src/index.js -o lib/index.js",
+    "lint": "eslint lib/"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.1.5",
+    "chokidar": "^2.0.4",
+    "css-mqpacker": "^7.0.0",
+    "del": "^3.0.0",
+    "glob": "^7.1.3",
+    "node-sass": "^4.9.3",
+    "node-sass-import-once": "^1.2.0",
+    "postcss": "^7.0.2",
+    "uglify-js": "^3.4.9"
+  }
+}

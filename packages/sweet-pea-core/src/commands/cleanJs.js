@@ -1,8 +1,8 @@
 "use strict";
 
-const del = require('del');
+import del from 'del';
 
-module.exports = function cleanJs(Theme) {
+export default function cleanJs(Theme) {
   const path = Theme.getOutputPath('js');
 
   console.log("Deleting .js files in", path);

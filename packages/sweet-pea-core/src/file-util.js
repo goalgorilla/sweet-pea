@@ -1,6 +1,5 @@
-
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
 
 /**
  * Returns the theme that is contained in a directory.
@@ -15,7 +14,7 @@ const fs = require('fs');
  * @param directory
  *   The directory for the theme that we're validating.
  */
-function themeForDirectory(directory) {
+export function themeForDirectory(directory) {
   const themeName = path.basename(directory);
   const infoPath = path.join(directory, `${themeName}.info.yml`);
 
@@ -25,7 +24,3 @@ function themeForDirectory(directory) {
 
   return null;
 }
-
-module.exports = {
-  themeForDirectory
-};

@@ -1,16 +1,16 @@
 "use strict";
 
-const EventEmitter = require('events').EventEmitter;
-const autoprefixer = require('autoprefixer');
-const fs = require('fs');
-const glob = require('glob');
-const importOnce = require('node-sass-import-once');
-const mqpacker = require('css-mqpacker');
-const path = require('path');
-const postcss = require('postcss');
-const sass = require('node-sass');
+import { EventEmitter } from 'events';
+import autoprefixer from 'autoprefixer';
+import fs from 'fs';
+import glob from 'glob';
+import importOnce from 'node-sass-import-once';
+import mqpacker from 'css-mqpacker';
+import path from 'path';
+import postcss from 'postcss';
+import sass from 'node-sass';
 
-function compileStyles(Theme) {
+export default function compileStyles(Theme) {
   const options = {
     // TODO: Allow this to be chosen?
     importer: importOnce,
@@ -82,6 +82,7 @@ async function renderFile(file, options, emitter) {
 
   const processor = postcss([
     // TODO: Make this configurable.
+    // TODO: Add rucksack because it's required by socialblue for font-path resolution.
     autoprefixer({browsers: ['> 1%', 'last 2 versions']}),
     mqpacker({sort: true})
   ]);
@@ -104,7 +105,7 @@ async function render(options) {
       }
       resolve(result);
     });
-  })
+  });
 }
 
 /**
@@ -142,5 +143,3 @@ function humanFileSize(bytes) {
   } while(Math.abs(bytes) >= thresh && u < units.length - 1);
   return bytes.toFixed(2)+' '+units[u];
 }
-
-module.exports = compileStyles;

@@ -1,8 +1,8 @@
 "use strict";
 
-const del = require('del');
+import del from 'del';
 
-module.exports = function cleanCss(Theme) {
+export default function cleanCss(Theme) {
   const path = Theme.getOutputPath('css');
 
   console.log("Deleting .css and .map files in", path);

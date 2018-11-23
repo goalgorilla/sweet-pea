@@ -1,9 +1,9 @@
 "use strict";
 
-const path = require('path');
-const { themeForDirectory } = require('./file-util');
+import path from 'path';
+import { themeForDirectory } from './file-util';
 
-class DrupalTheme {
+export default class DrupalTheme {
   constructor(directory, name) {
     this.directory = directory;
     this.name = name;
@@ -56,5 +56,3 @@ function assert(condition, error, code = 1) {
     process.exit(code);
   }
 }
-
-module.exports = DrupalTheme;
