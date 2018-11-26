@@ -8,6 +8,7 @@ import importOnce from 'node-sass-import-once';
 import mqpacker from 'css-mqpacker';
 import path from 'path';
 import postcss from 'postcss';
+import rucksack from 'rucksack-css';
 import sass from 'node-sass';
 
 export default function compileStyles(Theme) {
@@ -82,9 +83,9 @@ async function renderFile(file, options, emitter) {
 
   const processor = postcss([
     // TODO: Make this configurable.
-    // TODO: Add rucksack because it's required by socialblue for font-path resolution.
+    rucksack(),
     autoprefixer({browsers: ['> 1%', 'last 2 versions']}),
-    mqpacker({sort: true})
+    mqpacker({sort: true}),
   ]);
 
   // TODO: Add sourcemap support to SASS and POSTCSS.

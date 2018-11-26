@@ -91,10 +91,10 @@
 /*!**********************!*\
   !*** ./package.json ***!
   \**********************/
-/*! exports provided: name, version, description, author, license, bin, scripts, dependencies, default */
+/*! exports provided: name, version, description, author, license, bin, scripts, peerDependencies, default */
 /***/ (function(module) {
 
-eval("module.exports = {\"name\":\"@sweet-pea/cli\",\"version\":\"0.0.1\",\"description\":\"CLI to the Open Social front-end build tools\",\"author\":\"Alexander Varwijk <alexander@goalgorilla.com>\",\"license\":\"GPL-2.0\",\"bin\":{\"sp\":\"dist/cli.js\"},\"scripts\":{\"build\":\"webpack src/cli.js -o bin/cli.js\",\"lint\":\"eslint src/cli.js\"},\"dependencies\":{\"@sweet-pea/core\":\"^0.0.1\"}};\n\n//# sourceURL=webpack:///./package.json?");
+eval("module.exports = {\"name\":\"@sweet-pea/cli\",\"version\":\"0.1.0\",\"description\":\"CLI to the Open Social front-end build tools\",\"author\":\"Alexander Varwijk <alexander@goalgorilla.com>\",\"license\":\"GPL-2.0\",\"bin\":{\"sp\":\"dist/cli.js\"},\"scripts\":{\"build\":\"webpack src/cli.js -o bin/cli.js\",\"lint\":\"eslint src/cli.js\"},\"peerDependencies\":{\"@sweet-pea/core\":\"^0.1.0\"}};\n\n//# sourceURL=webpack:///./package.json?");
 
 /***/ }),
 
