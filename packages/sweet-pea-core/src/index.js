@@ -1,2 +1,2 @@
-export DrupalTheme from './DrupalTheme';
-export resolveCommand from './commands';
+export { default as DrupalTheme } from './DrupalTheme';
+export { default as resolveCommand } from './commands';

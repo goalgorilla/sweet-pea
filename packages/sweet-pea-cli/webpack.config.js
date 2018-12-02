@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const config = require('@sweet-pea/build/webpack.config.js');
+const config = require('../../webpack.config.js');
 
 module.exports = {
   ...config,

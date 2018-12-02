@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "webpack  src/index.js -o lib/index.js",
-    "lint": "eslint lib/"
+    "lint": "eslint src/"
   },
   "dependencies": {
     "autoprefixer": "^9.1.5",
