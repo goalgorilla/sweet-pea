@@ -4,6 +4,7 @@ import fs  from 'fs';
 import glob  from 'glob';
 import path  from 'path';
 import UglifyJS  from 'uglify-js';
+import { humanFileSize } from "../util/file";
 
 export default function compileScripts(Theme) {
   const options = {
@@ -69,28 +70,4 @@ async function writeFile(file, data, options) {
       resolve(data.length);
     });
   });
-}
-
-/**
- * Convert size to human readable format.
- *
- * Copied from: https://stackoverflow.com/a/14919494/576060
- *
- * TODO: Duplicate of styles function.
- *
- * @param bytes
- * @return {string}
- */
-function humanFileSize(bytes) {
-  const thresh = 1000;
-  if(Math.abs(bytes) < thresh) {
-    return bytes + ' B';
-  }
-  const units = ['kB','MB','GB','TB','PB','EB','ZB','YB'];
-  let u = -1;
-  do {
-    bytes /= thresh;
-    ++u;
-  } while(Math.abs(bytes) >= thresh && u < units.length - 1);
-  return bytes.toFixed(2)+' '+units[u];
 }
