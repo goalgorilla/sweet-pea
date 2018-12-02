@@ -1,0 +1,19 @@
+##
+# A testing .info.yml file based on Drupal's module .info.yml spec
+##
+
+# The display name for this module
+name: Test Module C
+# A brief description for this theme
+description: Provides a module for testing Sweet Pea module loading.
+# The package under which this module is displayed in the admin interface.
+package: Testing
+
+# The type defines the extension type (module, theme, etc.)
+type: module
+
+# A yml list of dependencies for this module.
+# dependencies:
+
+# The supported Drupal version.
+core: 8.x
