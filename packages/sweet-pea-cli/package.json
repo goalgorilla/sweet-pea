@@ -12,6 +12,6 @@
     "lint": "eslint src/cli.js"
   },
   "peerDependencies": {
-    "@sweet-pea/core": "^0.1.0"
+    "@sweet-pea/core": ">=0.1.0"
   }
 }
