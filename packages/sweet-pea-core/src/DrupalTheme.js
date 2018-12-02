@@ -1,7 +1,7 @@
 "use strict";
 
 import path from 'path';
-import { themeForDirectory } from './file-util';
+import { themeForDirectory } from './util/file';
 
 export default class DrupalTheme {
   constructor(directory, name) {
