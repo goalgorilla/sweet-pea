@@ -1,0 +1,24 @@
+##
+# A testing .info.yml file based on Drupal's theme .info.yml spec
+##
+
+# The display name for this theme
+name: Theme A
+# A brief description for this theme
+description: Theme A for testing the Sweet Pea library
+
+# The type defines the extension type (module, theme, etc.)
+# This is required and should always be set to 'theme' for a theme.
+type: theme
+
+# The base theme setting specifies another theme to use as a "parent" theme.
+# Templates, CSS, and other properties are inherited from the base theme. If a
+# base theme is not specified, Stable will automatically be used as the base
+# theme. To op-out of using Stable, set base theme to 'false'.
+#
+base theme: false
+
+# The supported Drupal version.
+core: 8.x
+
+# TODO: Implement libraries and component-libraries configuration.
