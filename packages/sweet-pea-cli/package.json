@@ -1,6 +1,6 @@
 {
   "name": "@sweet-pea/cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "CLI to the Open Social front-end build tools",
   "author": "Alexander Varwijk <alexander@goalgorilla.com>",
   "license": "GPL-2.0",

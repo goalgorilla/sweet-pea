@@ -1,6 +1,6 @@
 {
   "name": "@sweet-pea/build",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Contains build tools required for sweet-pea itself.",
   "author": "Alexander Varwijk <alexander@goalgorilla.com>",
   "license": "GPL-2.0",
