@@ -1,6 +1,7 @@
 "use strict";
 
 import path from 'path';
+import assert from './util/assert';
 import { themeForDirectory } from './util/file';
 
 export default class DrupalTheme {
@@ -47,12 +48,5 @@ export default class DrupalTheme {
     assert(theme !== null, `Could not load theme ${dir}. Is it a valid theme folder with an .info.yml file?`);
 
     return new this(dir, theme);
-  }
-}
-
-function assert(condition, error, code = 1) {
-  if (!condition) {
-    console.error(error);
-    process.exit(code);
   }
 }
