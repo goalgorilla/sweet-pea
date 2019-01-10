@@ -1,6 +1,6 @@
 "use strict";
 
-import { DrupalTheme, resolveCommand } from '@sweet-pea/core';
+import { DrupalTheme, cleanCss, cleanJs, scripts, styles } from '@sweet-pea/core';
 
 const toolInfo = require('../package.json');
 
@@ -48,25 +48,38 @@ const command = args[0];
 assertUsage(command.substr(0, 1) !== "-");
 
 // Resolve the provided command to an action that we can execute.
-// TODO: Parse args here instead of in resolveCommand.
 let action;
-try {
-  action = resolveCommand(command, args.slice(1));
-}
-catch (e) {
-  console.error(`Unknown command: ${command}`);
-  console.log("For help try `sp help`");
-  process.exit(1);
+switch(command) {
+  case 'clean':
+    action = (Theme) => {
+      cleanCss(Theme);
+      cleanJs(Theme);
+    };
+    break;
+  case 'clean:css':
+    action = cleanCss;
+    break;
+  case 'clean:js':
+    action = cleanJs;
+    break;
+  case 'scripts':
+    action = scripts;
+    break;
+  case 'styles':
+    action = styles;
+    break;
+  case 'help':
+    printUsage();
+    process.exit(0);
+    break;
+  default:
+    console.error(`Unknown command: ${command}`);
+    console.log("For help try `sp help`");
+    process.exit(1);
 }
 
 // TODO: Allow this program to run for modules instead of themes.
 // TODO: Add folder option here to use instead of current working dir.
-
-// It could be that an action was requested that could be executed without
-// loading a theme. In that case we're all done.
-if (!action) {
-  process.exit(0);
-}
 
 const Theme = DrupalTheme.loadFromDirectory(process.cwd());
 
