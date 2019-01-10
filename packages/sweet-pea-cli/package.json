@@ -13,5 +13,8 @@
   },
   "peerDependencies": {
     "@sweet-pea/core": ">=0.1.0"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0"
   }
 }

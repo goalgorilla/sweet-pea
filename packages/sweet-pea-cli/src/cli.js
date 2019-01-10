@@ -1,5 +1,7 @@
 "use strict";
 
+import path from 'path';
+import parseArgs from 'minimist';
 import { DrupalTheme, cleanCss, cleanJs, scripts, styles } from '@sweet-pea/core';
 import { assertUsage, printUsage } from './helpers';
 
@@ -45,7 +47,7 @@ const args = process.argv.slice(2);
 assertUsage(args.length > 0);
 
 // The first argument must be a command (not prefixed with "-" or "--").
-const command = args[0];
+const command = args.shift();
 assertUsage(command.substr(0, 1) !== "-");
 
 // For the help command we can terminate early.
@@ -53,17 +55,23 @@ if (command === 'help') {
   printUsage(commands);
   process.exit(0);
 }
-
 // If we're dealing with an unknown command then we can exit.
-if (typeof commands[command] === 'undefined') {
+else if (typeof commands[command] === 'undefined') {
   console.error(`Unknown command: ${command}`);
   console.log("For usage instructions try `sp help`");
   process.exit(1);
 }
 
+const options = parseArgs(args);
+
+let directory = process.cwd();
+// Allow the user to provide a relative or absolute path to the theme.
+if (typeof options['directory'] !== 'undefined') {
+  directory = path.resolve(directory, options['directory']);
+}
+
 // TODO: Allow this program to run for modules instead of themes.
-// TODO: Add folder option here to use instead of current working dir.
 
-const Theme = DrupalTheme.loadFromDirectory(process.cwd());
+const Theme = DrupalTheme.loadFromDirectory(directory);
 
-action(Theme);
+commands[command].run(Theme);

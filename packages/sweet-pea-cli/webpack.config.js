@@ -14,5 +14,6 @@ module.exports = {
    */
   externals: {
     "@sweet-pea/core": "@sweet-pea/core",
+    "minimist": "minimist",
   }
 };

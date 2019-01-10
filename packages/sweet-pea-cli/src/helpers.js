@@ -19,17 +19,24 @@ export function assertUsage(condition) {
  *
  * @param commands { command: { usage: string, run: function }, ... }
  *   An object that contains a mapping of command names to usage instructions.
- * @param commandMaxLength integer
- *   The maximum length to use for displaying the command names.
+ * @param nameMaxLength integer
+ *   The maximum length to use for displaying the names of commands and options.
  */
-export function printUsage(commands, commandMaxLength = 15) {
-  console.log("Usage: sp COMMAND");
+export function printUsage(commands, nameMaxLength = 20) {
+  console.log("Usage: sp <command>");
   console.log();
+
   console.log("Commands:");
   console.group();
-  console.log(`${'help'.padEnd(commandMaxLength)} Prints these usage instructions.`);
+  console.log(`${'help'.padEnd(nameMaxLength)} Prints these usage instructions.`);
   for (let command in commands) {
-    console.log(`${command.padEnd(commandMaxLength)} ${commands[command].usage}`)
+    console.log(`${command.padEnd(nameMaxLength)} ${commands[command].usage}`)
   }
+  console.groupEnd();
+  console.log();
+
+  console.log("Options: ");
+  console.group();
+  console.log(`${'--folder=<path>'.padEnd(nameMaxLength)} Takes a path to a folder to use instead of the current directory.`)
   console.groupEnd();
 }
