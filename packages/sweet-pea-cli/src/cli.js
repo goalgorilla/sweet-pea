@@ -1,38 +1,39 @@
 "use strict";
 
 import { DrupalTheme, cleanCss, cleanJs, scripts, styles } from '@sweet-pea/core';
+import { assertUsage, printUsage } from './helpers';
 
 const toolInfo = require('../package.json');
 
 /**
- * If the condition is false, prints the usage instructions and exits.
- *
- * @param condition
- *   The condition that is required for the program to run.
+ * A mapping of commands to their usage information and handlers.
  */
-function assertUsage(condition) {
-  if (condition) {
-    return;
-  }
-
-  printUsage();
-  process.exit(1);
-}
-
-/**
- * Prints the usage instructions for this program.
- */
-function printUsage() {
-  console.log("Usage: sp command [options]");
-  console.log();
-  console.log("Commands:");
-  console.log("\thelp\t\tPrints these usage instructions.");
-  console.log("\tclean\t\tRemove the compiled css/js files.");
-  console.log("\tclean:css\t\tRemove the compiled css files.");
-  console.log("\tclean:js\t\tRemove the compiled js files.");
-  console.log("\tscripts\t\tCompile the javascript of the current theme.");
-  console.log("\tstyles\t\tCompile the sass of the current theme.");
-}
+const commands = {
+  'clean': {
+    usage: 'Remove the compiled css/js files.',
+    run: (target) => {
+      // TODO: Once these return promises they should run as parallel promises.
+      cleanCss(target);
+      cleanJs(target);
+    }
+  },
+  'clean:css': {
+    usage: 'Remove the compiled css files.',
+    run: cleanCss
+  },
+  'clean:js': {
+    usage: 'Remove the compiled js files.',
+    run: cleanJs
+  },
+  'scripts': {
+    usage: 'Compile the javascript of the current theme.',
+    run: scripts
+  },
+  'styles': {
+    usage: 'Compile the sass of the current theme.',
+    run: styles
+  },
+};
 
 // We always print version info.
 console.log(`${toolInfo.name} v${toolInfo.version}`);
@@ -47,35 +48,17 @@ assertUsage(args.length > 0);
 const command = args[0];
 assertUsage(command.substr(0, 1) !== "-");
 
-// Resolve the provided command to an action that we can execute.
-let action;
-switch(command) {
-  case 'clean':
-    action = (Theme) => {
-      cleanCss(Theme);
-      cleanJs(Theme);
-    };
-    break;
-  case 'clean:css':
-    action = cleanCss;
-    break;
-  case 'clean:js':
-    action = cleanJs;
-    break;
-  case 'scripts':
-    action = scripts;
-    break;
-  case 'styles':
-    action = styles;
-    break;
-  case 'help':
-    printUsage();
-    process.exit(0);
-    break;
-  default:
-    console.error(`Unknown command: ${command}`);
-    console.log("For help try `sp help`");
-    process.exit(1);
+// For the help command we can terminate early.
+if (command === 'help') {
+  printUsage(commands);
+  process.exit(0);
+}
+
+// If we're dealing with an unknown command then we can exit.
+if (typeof commands[command] === 'undefined') {
+  console.error(`Unknown command: ${command}`);
+  console.log("For usage instructions try `sp help`");
+  process.exit(1);
 }
 
 // TODO: Allow this program to run for modules instead of themes.
