@@ -4,8 +4,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build",
-    "lint": "lerna run lint",
+    "build": "lerna run --parallel build",
+    "lint": "lerna run --parallel lint",
     "test": "jest",
     "publish": "lerna publish --conventional-commits"
   },
