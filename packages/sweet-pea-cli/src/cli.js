@@ -2,7 +2,7 @@
 
 import path from 'path';
 import parseArgs from 'minimist';
-import { DrupalTheme, cleanCss, cleanJs, scripts, styles, imageIcons } from '@sweet-pea/core';
+import { DrupalTheme, cleanCss, cleanJs, scripts, styles, imageIcons, spriteIcons } from '@sweet-pea/core';
 import { printUsage } from './helpers';
 
 const toolInfo = require('../package.json');
@@ -30,6 +30,10 @@ const commands = {
   'image-icons': {
     usage: 'Optimize icons to individual icon files.',
     run: imageIcons,
+  },
+  'sprite-icons': {
+    usage: 'Compile a single svg sprite from the icons in the theme.',
+    run: spriteIcons,
   },
   'scripts': {
     usage: 'Compile the javascript of the current theme.',

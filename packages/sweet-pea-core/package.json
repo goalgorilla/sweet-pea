@@ -24,6 +24,7 @@
     "postcss": "^7.0.2",
     "rucksack-css": "^1.0.2",
     "svgo": "^1.1.1",
+    "svgstore": "^3.0.0-2",
     "uglify-js": "^3.4.9"
   }
 }

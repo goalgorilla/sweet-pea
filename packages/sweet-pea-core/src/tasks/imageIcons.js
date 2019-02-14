@@ -1,7 +1,7 @@
-import fs from "fs";
 import path from "path";
 import glob from "glob";
 import SVGOptim from "svgo";
+import { fs } from '../util/async';
 
 /**
  * Optimizes the individual icon files for a theme.
@@ -33,7 +33,7 @@ export default function imageIcons(Theme) {
     files.reduce(
       (p, file) => {
         let outFile = path.join(options.output, path.basename(file));
-        return p.then(optimizeFile.bind(null, svgo, file, outFile))
+        return p.then(optimizeFile.bind(null, svgo, file, outFile));
       },
       Promise.resolve()
     );
@@ -51,36 +51,7 @@ export default function imageIcons(Theme) {
  *   The name of the file to write the output to.
  */
 function optimizeFile(optimizer, file, target) {
-  return readFile(file)
+  return fs.readFile(file)
     .then(optimizer.optimize.bind(optimizer))
-    .then((result) => writeFile(target, result.data));
-}
-
-/**
- * An async wrapper around fs.readFile
- */
-async function readFile(file, options = { encoding: 'utf8' }) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(file, options, (error, data) => {
-      if (error) {
-        return reject(error);
-      }
-
-      resolve(data);
-    })
-  })
-}
-
-/**
- * An async wrapper around fs.writeFile
- */
-async function writeFile(file, data, options) {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(file, data, options, (error) => {
-      if (error) {
-        return reject(error);
-      }
-      resolve(data.length);
-    });
-  });
+    .then((result) => fs.writeFile(target, result.data));
 }

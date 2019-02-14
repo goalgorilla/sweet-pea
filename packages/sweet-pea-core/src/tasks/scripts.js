@@ -1,10 +1,10 @@
 "use strict";
 
-import fs  from 'fs';
 import glob  from 'glob';
 import path  from 'path';
 import UglifyJS  from 'uglify-js';
 import { humanFileSize } from "../util/file";
+import { fs } from "../util/async";
 
 export default function compileScripts(Theme) {
   const options = {
@@ -37,37 +37,8 @@ function compileDir(options, emitter) {
 async function compileFile(file, options, emitter) {
   const inFile = path.basename(file);
   const outFile = path.join(options.output, [path.basename(file, '.js'), '.min.js'].join(''));
-  return readFile(file, { encoding: 'utf8' })
+  return fs.readFile(file, { encoding: 'utf8' })
     .then((data) => UglifyJS.minify({ [inFile]: data }))
-    .then((result) => writeFile(outFile, result.code))
+    .then((result) => fs.writeFile(outFile, result.code))
     .then((bytes) => console.log(`${path.basename(outFile)} ${humanFileSize(bytes)}`));
-}
-
-/**
- * An async wrapper arond fs.readFile
- */
-async function readFile(file, options) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(file, options, (error, data) => {
-      if (error) {
-        return reject(error);
-      }
-      resolve(data);
-    });
-  });
-}
-
-/**
- * An async wrapper around fs.writeFile
- * TODO: Duplicate of styles function.
- */
-async function writeFile(file, data, options) {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(file, data, options, (error) => {
-      if (error) {
-        return reject(error);
-      }
-      resolve(data.length);
-    });
-  });
 }

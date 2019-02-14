@@ -18,6 +18,7 @@ module.exports = {
     "postcss": "postcss",
     "rucksack-css": "rucksack-css",
     "svgo": "svgo",
+    "svgstore": "svgstore",
     "uglify-js": "uglify-js",
   }
 };

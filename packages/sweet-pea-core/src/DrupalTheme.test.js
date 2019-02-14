@@ -19,5 +19,5 @@ describe('Drupal Theme', () => {
 
   test('throws an error when it can\'t find a theme', () => {
     expect(() => DrupalTheme.loadFromDirectory(path.join(__dirname, "../fixtures/canteverexist"))).toThrow();
-  })
+  });
 });

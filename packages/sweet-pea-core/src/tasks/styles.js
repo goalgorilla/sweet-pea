@@ -2,7 +2,6 @@
 
 import { EventEmitter } from 'events';
 import autoprefixer from 'autoprefixer';
-import fs from 'fs';
 import glob from 'glob';
 import importOnce from 'node-sass-import-once';
 import mqpacker from 'css-mqpacker';
@@ -11,6 +10,7 @@ import postcss from 'postcss';
 import rucksack from 'rucksack-css';
 import sass from 'node-sass';
 import { humanFileSize } from '../util/file';
+import { fs } from '../util/async';
 
 export default function compileStyles(Theme) {
   const options = {
@@ -92,7 +92,7 @@ async function renderFile(file, options, emitter) {
   // TODO: Add sourcemap support to SASS and POSTCSS.
   return render(fileOpts)
     .then((result) => processor.process(result.css.toString()))
-    .then((result) => writeFile(fileOpts.outFile, result.css))
+    .then((result) => fs.writeFile(fileOpts.outFile, result.css))
     .then((bytes) => console.log(`${path.basename(file)} ${humanFileSize(bytes)}`));
 }
 
@@ -106,20 +106,6 @@ async function render(options) {
         return reject(error);
       }
       resolve(result);
-    });
-  });
-}
-
-/**
- * An async wrapper around fs.writeFile
- */
-async function writeFile(file, data, options) {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(file, data, options, (error) => {
-      if (error) {
-        return reject(error);
-      }
-      resolve(data.length);
     });
   });
 }

@@ -4,6 +4,7 @@ import cleanCss from './tasks/cleanCss';
 import cleanJs from './tasks/cleanJs';
 import imageIcons from './tasks/imageIcons';
 import scripts from './tasks/scripts';
+import spriteIcons from './tasks/spriteIcons';
 import styles from './tasks/styles';
 
 export {
@@ -11,6 +12,7 @@ export {
   scripts,
   styles,
   imageIcons,
+  spriteIcons,
   cleanCss,
   cleanJs,
 };
