@@ -76,8 +76,6 @@ if (typeof options['directory'] !== 'undefined') {
   directory = path.resolve(directory, options['directory']);
 }
 
-// TODO: Allow this program to run for modules instead of themes.
-
 const Theme = DrupalTheme.loadFromDirectory(directory);
 
 commands[command].run(Theme);
