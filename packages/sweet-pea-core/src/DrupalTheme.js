@@ -12,12 +12,17 @@ export default class DrupalTheme {
     this.config = {
       // Paths are always relative to the theme directory.
       paths: {
-        components: 'components',
+        src: {
+          components: 'components',
+          // TODO: This should be in a .build.yml file.
+          icons: 'components/06-libraries/icons/source/'
+        },
         output: {
           css: 'assets/css',
           js: 'assets/js',
-          icons: 'assets/icons',
-          mimeIcons: 'assets/mime-icons',
+          icons: 'assets/images/icons',
+          iconSprite: 'assets/icons/',
+          mimeIcons: 'assets/images/mime-icons',
         }
       }
     };
@@ -31,7 +36,15 @@ export default class DrupalTheme {
   };
 
   getComponentsPath() {
-    return path.join(this.directory, this.config.paths.components);
+    return path.join(this.directory, this.config.paths.src.components);
+  }
+
+  getSourcePath(type) {
+    if (typeof this.config.paths.src[type] === 'undefined') {
+      throw new Error(`No source path specified for type '${type}'`);
+    }
+
+    return path.join(this.directory, this.config.paths.src[type]);
   }
 
   getOutputPath(type) {

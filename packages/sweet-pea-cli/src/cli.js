@@ -2,7 +2,7 @@
 
 import path from 'path';
 import parseArgs from 'minimist';
-import { DrupalTheme, cleanCss, cleanJs, scripts, styles } from '@sweet-pea/core';
+import { DrupalTheme, cleanCss, cleanJs, scripts, styles, imageIcons } from '@sweet-pea/core';
 import { printUsage } from './helpers';
 
 const toolInfo = require('../package.json');
@@ -26,6 +26,10 @@ const commands = {
   'clean:js': {
     usage: 'Remove the compiled js files.',
     run: cleanJs
+  },
+  'image-icons': {
+    usage: 'Optimize icons to individual icon files.',
+    run: imageIcons,
   },
   'scripts': {
     usage: 'Compile the javascript of the current theme.',

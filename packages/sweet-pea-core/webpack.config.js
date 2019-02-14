@@ -17,6 +17,7 @@ module.exports = {
     "node-sass-import-once": "node-sass-import-once",
     "postcss": "postcss",
     "rucksack-css": "rucksack-css",
+    "svgo": "svgo",
     "uglify-js": "uglify-js",
   }
 };
