@@ -3,7 +3,7 @@
 import path from 'path';
 import parseArgs from 'minimist';
 import { DrupalTheme, cleanCss, cleanJs, scripts, styles } from '@sweet-pea/core';
-import { assertUsage, printUsage } from './helpers';
+import { printUsage } from './helpers';
 
 const toolInfo = require('../package.json');
 
@@ -44,11 +44,17 @@ console.log(`${toolInfo.name} v${toolInfo.version}`);
 const args = process.argv.slice(2);
 
 // Require at least a single argument to indicate the user action.
-assertUsage(args.length > 0);
+if (args.length === 0) {
+  printUsage(commands);
+  process.exit(1);
+}
 
 // The first argument must be a command (not prefixed with "-" or "--").
 const command = args.shift();
-assertUsage(command.substr(0, 1) !== "-");
+if (command.substr(0, 1) === "-") {
+  printUsage(commands);
+  process.exit(1);
+}
 
 // For the help command we can terminate early.
 if (command === 'help') {

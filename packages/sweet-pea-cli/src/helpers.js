@@ -1,19 +1,3 @@
-
-/**
- * If the condition is false, prints the usage instructions and exits.
- *
- * @param condition
- *   The condition that is required for the program to run.
- */
-export function assertUsage(condition) {
-  if (condition) {
-    return;
-  }
-
-  printUsage();
-  process.exit(1);
-}
-
 /**
  * Prints the usage instructions for this program.
  *
