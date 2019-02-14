@@ -5,6 +5,7 @@
   ],
   "scripts": {
     "build": "lerna run --parallel build",
+    "build:dev": "lerna run --parallel build:dev",
     "lint": "lerna run --parallel lint",
     "test": "jest",
     "publish": "lerna publish --conventional-commits"

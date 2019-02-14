@@ -8,7 +8,8 @@
     "sp": "dist/cli.js"
   },
   "scripts": {
-    "build": "webpack src/cli.js -o bin/cli.js",
+    "build": "webpack --mode production src/cli.js -o bin/cli.js",
+    "build:dev": "webpack --mode development src/cli.js -o bin/cli.js",
     "lint": "eslint src/cli.js"
   },
   "peerDependencies": {

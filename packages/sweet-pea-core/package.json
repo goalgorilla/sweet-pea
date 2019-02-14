@@ -9,7 +9,8 @@
     "sp": "dist/cli.js"
   },
   "scripts": {
-    "build": "webpack  src/index.js -o lib/index.js",
+    "build": "webpack --mode production src/index.js -o lib/index.js",
+    "build:dev": "webpack --mode development src/index.js -o lib/index.js",
     "lint": "eslint src/"
   },
   "dependencies": {
