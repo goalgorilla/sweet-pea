@@ -39,7 +39,7 @@ export function themeForDirectory(directory) {
  *   could not be found.
  */
 export function findThemePath(themeName, root) {
-  const themePattern = path.join(root, "?(core/)themes", "**", `${themeName}.info.yml`);
+  const themePattern = path.join(root, "{themes,core/themes,profiles/**/themes}", "**", `${themeName}.info.yml`);
   const paths = glob.sync(themePattern);
 
   // If an installation contains more than one theme with the same name this is
@@ -76,7 +76,7 @@ export function drupalRoot(dir) {
     if (isValidRoot(dir)) {
       return dir;
     }
-    dir = path.dirname(dir)
+    dir = path.dirname(dir);
   } while (dir !== '/');
 
   // If we're here, nothing has been found.

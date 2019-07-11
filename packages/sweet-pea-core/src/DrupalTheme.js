@@ -1,13 +1,20 @@
 "use strict";
 
 import path from 'path';
+import fs from 'fs';
+import yaml from 'js-yaml';
 import assert from './util/assert';
-import {findThemePath, themeForDirectory} from './util/file';
+import {drupalRoot, findThemePath, themeForDirectory} from './util/file';
 
 export default class DrupalTheme {
   constructor(directory, name) {
     this.directory = directory;
     this.name = name;
+
+    this.__loadThemeInfo();
+
+    // If this theme has a base theme then we load it.
+    this.baseTheme = typeof this.info['base theme'] !== 'string' ? null : this.constructor.loadByName(this.info['base theme'], directory);
 
     this.config = {
       // Paths are always relative to the theme directory.
@@ -28,6 +35,18 @@ export default class DrupalTheme {
     };
 
     this.loadBuildConfiguration();
+  }
+
+  __loadThemeInfo() {
+    const infoFile = `${this.name}.info.yml`;
+
+    // yaml.safeLoad can throw errors on malformed YAML but those are for the
+    // user to fix.
+    this.info = yaml.safeLoad(
+      fs.readFileSync(path.join(this.directory, infoFile)),
+      {filename: infoFile}
+    );
+
   }
 
   loadBuildConfiguration() {
@@ -83,10 +102,10 @@ export default class DrupalTheme {
    *   An instantiated DrupalTheme instance for that theme.
    */
   static loadByName(name, dir) {
-    const drupalRoot = drupalRoot(dir);
-    assert(drupalRoot !== null, `Could not find a valid Drupal installation from ${dir}. Is the folder in a webroot that contains \`core/core.services.yml\`?`);
-    const themePath = findThemePath(name, dir);
-    assert(themePath !== null, `Could not find theme ${themePath}. Is the theme installed in the detected Drupal root '${drupalRoot}'?`);
+    const root = drupalRoot(dir);
+    assert(root !== null, `Could not find a valid Drupal installation from ${dir}. Is the folder in a webroot that contains \`core/core.services.yml\`?`);
+    const themePath = findThemePath(name, root);
+    assert(themePath !== null, `Could not find theme ${name}. Is the theme installed in the detected Drupal root '${root}'?`);
 
     return new this(themePath, name);
   }
