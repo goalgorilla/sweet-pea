@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import glob from 'glob';
 
 /**
  * Returns the theme that is contained in a directory.
@@ -22,6 +23,63 @@ export function themeForDirectory(directory) {
     return themeName;
   }
 
+  return null;
+}
+
+/**
+ * Finds the path of the theme with the given name.
+ *
+ * @param {string} themeName
+ *   The name of the theme to find.
+ * @param {string} root
+ *   The Drupal root directory to search from.
+ *
+ * @return {string|null}
+ *   The path to the directory of the theme that was found or null if the theme
+ *   could not be found.
+ */
+export function findThemePath(themeName, root) {
+  const themePattern = path.join(root, "?(core/)themes", "**", `${themeName}.info.yml`);
+  const paths = glob.sync(themePattern);
+
+  // If an installation contains more than one theme with the same name this is
+  // an error we can not solve.
+  if (paths.length > 1) {
+    throw new Error(`Found more than one theme named ${themeName}, this can indicate an error with your installation`);
+  }
+
+  return paths.length === 1 ? path.dirname(paths[0]) : null;
+}
+
+/**
+ * Returns the path to the Drupal 8 site root for a given file or directory.
+ *
+ * Will traverse up through the file tree to find the root. This function does
+ * not follow symlinks.
+ *
+ * Uses the core.services.yml file to find the Drupal core location and assumes
+ * this folder is in the web root.
+ *
+ * @param {string} dir
+ *   The path to start traversal from.
+ *
+ * @return string|null
+ *   The path to the Drupal site root or null if none could be found.
+ */
+export function drupalRoot(dir) {
+  function isValidRoot(candidate) {
+    return fs.existsSync(path.join(candidate, 'core', 'core.services.yml'));
+  }
+
+  // Check each path moving up the tree.
+  do {
+    if (isValidRoot(dir)) {
+      return dir;
+    }
+    dir = path.dirname(dir)
+  } while (dir !== '/');
+
+  // If we're here, nothing has been found.
   return null;
 }
 

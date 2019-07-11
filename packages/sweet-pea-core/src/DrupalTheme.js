@@ -2,7 +2,7 @@
 
 import path from 'path';
 import assert from './util/assert';
-import { themeForDirectory } from './util/file';
+import {findThemePath, themeForDirectory} from './util/file';
 
 export default class DrupalTheme {
   constructor(directory, name) {
@@ -55,11 +55,39 @@ export default class DrupalTheme {
     return path.join(this.directory, this.config.paths.output[type]);
   }
 
+  /**
+   * Loads a Drupal theme from the path to the theme.
+   *
+   * @param dir
+   *   The path of the theme.
+   * @return {DrupalTheme}
+   *   An instantiated DrupalTheme instance for that theme.
+   */
   static loadFromDirectory(dir) {
     // Verify the directory is a valid theme.
     const theme = themeForDirectory(dir);
     assert(theme !== null, `Could not load theme ${dir}. Is it a valid theme folder with an .info.yml file?`);
 
     return new this(dir, theme);
+  }
+
+  /**
+   * Loads a theme by name given a start path in a Drupal 8 installation.
+   *
+   * @param name
+   *   The name of the theme to load.
+   * @param dir
+   *   A path from which the Drupal root can be determined in which to search.
+   *
+   * @return {DrupalTheme}
+   *   An instantiated DrupalTheme instance for that theme.
+   */
+  static loadByName(name, dir) {
+    const drupalRoot = drupalRoot(dir);
+    assert(drupalRoot !== null, `Could not find a valid Drupal installation from ${dir}. Is the folder in a webroot that contains \`core/core.services.yml\`?`);
+    const themePath = findThemePath(name, dir);
+    assert(themePath !== null, `Could not find theme ${themePath}. Is the theme installed in the detected Drupal root '${drupalRoot}'?`);
+
+    return new this(themePath, name);
   }
 }
