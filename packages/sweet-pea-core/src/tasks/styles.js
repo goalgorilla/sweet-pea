@@ -85,7 +85,7 @@ async function renderFile(file, options, emitter) {
   const processor = postcss([
     // TODO: Make this configurable.
     rucksack(),
-    autoprefixer({browsers: ['> 1%', 'last 2 versions']}),
+    autoprefixer(),
     mqpacker({sort: true}),
   ]);
 
